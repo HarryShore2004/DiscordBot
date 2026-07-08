@@ -20,7 +20,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 
-bot = commands.Bot(command_prefix="!", intents=intents)
+bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 
 
 def get_now():
@@ -438,6 +438,37 @@ async def since(ctx, member: discord.Member | None = None):
         f"Total crashouts: **{user_data['crashouts']}**."
     )
 
+@bot.command(name="help")
+async def help_command(ctx):
+    await ctx.send(
+        "📘 **Crashout Bot Commands** 📘\n\n"
+        
+        "**Basic Commands**\n"
+        "`!ping` — Tests if the bot is online.\n"
+        "`!help` — Shows this command list.\n\n"
+
+        "**Crashout Timer Commands**\n"
+        "`!since` — Shows how long you have gone without crashing out.\n"
+        "`!since @user` — Shows how long another user has gone without crashing out.\n"
+        "`!leaderboard` — Shows everyone ranked by total crashouts, including time since their last crashout.\n\n"
+
+        "**Crashout Report Commands**\n"
+        "`!crashout @user` — Records a crashout for that user, resets their timer, increases their crashout count, and starts a crashout report.\n"
+        "`!crashoutreports` — Shows a recent list of saved crashout reports.\n"
+        "`!crashoutreport 1` — Shows the full crashout report with ID 1.\n\n"
+
+        "**Personal / Server Report Commands**\n"
+        "`!mycrashouts` — Shows all crashout reports where you were accused of crashing out.\n"
+        "`!seecrashouts @user` — Shows all crashout reports for another user.\n"
+        "`!servercrashouts` — Shows the full server-wide list of crashout reports.\n\n"
+
+        "**How a crashout report works**\n"
+        "1. Someone uses `!crashout @user`\n"
+        "2. The bot asks why they crashed out\n"
+        "3. The bot asks for a 1/10 crashout rating\n"
+        "4. The accused user gets asked to explain their side\n"
+        "5. The full report is saved and can be viewed later"
+    )
 
 @bot.command()
 async def leaderboard(ctx):
