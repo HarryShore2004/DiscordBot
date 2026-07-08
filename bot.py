@@ -10,7 +10,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 TOKEN = os.getenv("DISCORD_TOKEN")
-DATA_FILE = "crashout_data.json"
+DATA_FILE = os.path.join(
+    os.getenv("RAILWAY_VOLUME_MOUNT_PATH", "."),
+    "crashout_data.json"
+)
 
 
 intents = discord.Intents.default()
